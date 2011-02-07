@@ -1,0 +1,9 @@
+#!/usr/bin/env perl
+
+use lib 'lib';
+
+use App::karyn;
+
+App::karyn->run;
+
+1;
