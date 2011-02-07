@@ -1,7 +1,6 @@
 package App::karyn::Command::List;
 
 use App::karyn -command;
-
 use Modern::Perl;
 use Devel::Dwarn;
 use Term::ANSIColor;
@@ -74,10 +73,7 @@ sub execute {
             print colored "$ibucket\n", 'blue';
 
             for my $ikey ($tiny->get($ibucket)->keys) {
-                if ($key eq $ikey) {
-                    print "/$key\n"
-                      . $tiny->get($ibucket => $ikey)->value . "\n";
-                }
+                print "\t$key\n" if $key eq $ikey;
             }
         }
     }
