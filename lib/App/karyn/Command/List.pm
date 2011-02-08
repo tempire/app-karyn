@@ -4,7 +4,6 @@ use App::karyn -command;
 use Modern::Perl;
 use Devel::Dwarn;
 use Term::ANSIColor;
-use Data::Dump 'pp';
 
 sub opt_spec {
     return (

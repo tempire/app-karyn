@@ -1,4 +1,4 @@
-package App::karyn::Command::Add;
+package App::karyn::Command::Delete;
 
 use App::karyn -command;
 
@@ -9,27 +9,24 @@ sub opt_spec {
     return (
         ['bucket|b=s' => 'Bucket name', {default => '_'}],
         ['key|k=s'    => 'Key name',    {default => '_'}],
-        ['value|v=s'  => 'Key value',   {default => '_'}]
     );
 }
 
-sub abstract   {'Add keys to buckets'}
-sub usage_desc {'karyn add --bucket name --key name --value value'}
+sub abstract   {'Delete keys from buckets'}
+sub usage_desc {'karyn delete --bucket name --key name'}
 
 sub validate_args {
     my ($self, $opt, $args) = @_;
 
-    $self->usage_error('Bucket, key, & value required')
+    $self->usage_error('Bucket and/or key required')
       if !$opt->bucket
-          and !$opt->key
-          and !$opt->value;
+          and !$opt->key;
 }
 
 sub execute {
     my ($self, $opt, $args) = @_;
     my $bucket = $opt->bucket;
     my $key    = $opt->key;
-    my $value  = $opt->value;
 
     my $tiny = $self->app->tiny;
 
@@ -42,11 +39,19 @@ sub execute {
         $key    = $2;
     }
 
-    $value = $args->[1] if @$args and $args->[1];
+    # Delete all keys in bucket
+    if ($bucket ne '_' and $key eq '_') {
+        for ($tiny->get($bucket)->delete_keys) {
+            print "Deleted $bucket/" . $_->key . "\n";
+        }
+    }
 
-    my $obj = $tiny->new_object($bucket => $key => $value);
-    my $code = $obj ? $obj->tx->res->code : $@;
-    print "$code No Content (Success)\n" if $code == 204;
+    # Delete bucket key/value
+    elsif ($bucket ne '_' and $key ne '_') {
+        for ($tiny->get($bucket => $key)->delete) {
+            print "Deleted $bucket/" . $_->key . "\n";
+        }
+    }
 }
 
 1;
