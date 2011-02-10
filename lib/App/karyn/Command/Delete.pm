@@ -42,7 +42,7 @@ sub execute {
     # Delete all keys in bucket
     if ($bucket ne '_' and $key eq '_') {
         for ($tiny->get($bucket)->delete_keys) {
-            print "Deleted $bucket/" . $_->key . "\n";
+            print "Deleted $bucket/$_\n";
         }
     }
 
