@@ -48,9 +48,12 @@ sub execute {
 
     # Delete bucket key/value
     elsif ($bucket ne '_' and $key ne '_') {
-        for ($tiny->get($bucket => $key)->delete) {
-            print "Deleted $bucket/" . $_->key . "\n";
-        }
+        my $obj = $tiny->get($bucket => $key);
+        my $code = $obj ? $obj->tx->res->code : $@;
+        print "$code (Error)\n" and return if $code != 200;
+
+        $obj->delete;
+        print "Deleted $bucket/" . $obj->key . "\n";
     }
 }
 
