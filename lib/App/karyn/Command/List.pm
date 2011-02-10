@@ -4,6 +4,7 @@ use App::karyn -command;
 use Modern::Perl;
 use Devel::Dwarn;
 use Term::ANSIColor;
+use Data::Dump 'pp';
 
 sub opt_spec {
     return (
@@ -11,6 +12,7 @@ sub opt_spec {
         ['key|k=s'    => 'Regex for key name',     {default => '_'}],
         ['delete|d'   => 'Delete found keys'],
         ['links|l'    => 'List links in found keys'],
+        ['perl|p'     => 'Dump JSON as perl structure'],
     );
 }
 
@@ -35,10 +37,10 @@ sub execute {
     if (    $bucket eq '_'
         and $key eq '_'
         and @$args
-        and $args->[0] =~ /(.+)?\/(.+)$/)
+        and $args->[0] =~ /(.+?)(?:\/(.+))?$/)
     {
         $bucket = $1;
-        $key    = $2;
+        $key = $2 if $2;
     }
 
     # Show key value
@@ -47,7 +49,11 @@ sub execute {
         my $code = $obj ? $obj->tx->res->code : $@;
         print "$code (Error)\n" if $code != 200;
 
-        print $obj->value . "\n";
+        print $obj->json && $opt->perl
+          ? pp $obj->json
+          : $obj->value;
+
+        print "\n";
     }
 
     # List buckets

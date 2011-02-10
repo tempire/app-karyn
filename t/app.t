@@ -8,6 +8,7 @@ use App::karyn;
 test_app('App::karyn' => [qw'delete -b b1']);
 test_app('App::karyn' => [qw'delete -b b2']);
 test_app('App::karyn' => [qw'delete -b b3']);
+test_app('App::karyn' => [qw'delete -b b4']);
 
 subtest 'add key/values' => sub {
 
@@ -20,28 +21,14 @@ subtest 'add key/values' => sub {
 subtest 'list buckets' => sub {
 
     # list buckets
-    like test_app('App::karyn' => [qw/list --buckets/])->stdout =>
+    like test_app('App::karyn' => [qw/list --bucket _/])->stdout =>
       qr/\nhello\n/,
       'list buckets';
 
     # list buckets alias
     is test_app('App::karyn' => [qw/list/])->stdout =>
-      test_app('App::karyn' => [qw/list --buckets/])->stdout,
+      test_app('App::karyn' => [qw/list --bucket _/])->stdout,
       'default list buckets';
-};
-
-subtest 'show keys' => sub {
-
-    # show key value aliases
-    is test_app('App::karyn' => [qw/list --bucket b1 --key k1/])->stdout =>
-      "v1\n";
-    is test_app('App::karyn' => [qw/list -b b1 -k k1/])->stdout => "v1\n";
-    is test_app('App::karyn' => [qw|list b1/k1|])->stdout       => "v1\n";
-
-    # Search all buckets for matching key
-    like test_app('App::karyn' => [qw|list --bucket _ --key k1|])->stdout =>
-      qr/k1/;
-    like test_app('App::karyn' => [qw|list --key k1|])->stdout => qr/k1/;
 };
 
 subtest 'add keys' => sub {
@@ -63,6 +50,33 @@ subtest 'add keys' => sub {
       'added';
     is test_app('App::karyn' => [qw'list b3/k3'])->stdout => "v3\n",
       'verified';
+};
+
+
+subtest 'show keys' => sub {
+
+    # show key value aliases
+    is test_app('App::karyn' => [qw/list --bucket b1 --key k1/])->stdout =>
+      "v1\n";
+    is test_app('App::karyn' => [qw/list -b b1 -k k1/])->stdout => "v1\n";
+    is test_app('App::karyn' => [qw|list b1/k1|])->stdout       => "v1\n";
+
+    # List all keys in bucket
+    is test_app('App::karyn' => [qw|list --bucket b1|])->stdout => "k1\n";
+    is test_app('App::karyn' => [qw|list b1|])->stdout          => "k1\n";
+
+    # Search all buckets for matching key
+    like test_app('App::karyn' => [qw|list --bucket _ --key k1|])->stdout =>
+      qr/k1/;
+    like test_app('App::karyn' => [qw|list --key k1|])->stdout => qr/k1/;
+
+    # Dump JSON as perl structure
+    is test_app('App::karyn' => [qw|add b4/k4 {"json":"structure"}|])->stdout =>
+      "204 No Content (Success)\n",
+      'added';
+    like test_app('App::karyn' => [qw'list b4/k4 --perl'])->stdout =>
+      qr/{\s+json\s+=>\s+"structure"\s+}/,
+      'pp json';
 };
 
 subtest 'delete keys' => sub {

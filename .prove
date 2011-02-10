@@ -1,18 +1,18 @@
 ---
-generation: 95
-last_run_time: 1297308260.40759
+generation: 119
+last_run_time: 1297310878.16294
 tests:
   t/app.t:
-    elapsed: 4.1659460067749
-    gen: 95
-    last_fail_time: 1297308237.54578
-    last_pass_time: 1297308260.40653
+    elapsed: 4.6782910823822
+    gen: 119
+    last_fail_time: 1297310862.18353
+    last_pass_time: 1297310878.16173
     last_result: 0
-    last_run_time: 1297308260.40653
+    last_run_time: 1297310878.16173
     last_todo: 0
-    mtime: 1297308228
-    seq: 95
-    total_failures: 73
-    total_passes: 22
+    mtime: 1297310872
+    seq: 119
+    total_failures: 93
+    total_passes: 26
 version: 1
 ...
