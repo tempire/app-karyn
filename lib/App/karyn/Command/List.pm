@@ -29,8 +29,9 @@ sub validate_args {
 
 sub execute {
     my ($self, $opt, $args) = @_;
-    my $bucket = $opt->bucket;
-    my $key    = $opt->key;
+    my $bucket  = $opt->bucket;
+    my $key     = $opt->key;
+    my $as_perl = $opt->perl;
 
     my $tiny = $self->app->tiny;
 
@@ -49,7 +50,7 @@ sub execute {
         my $code = $obj ? $obj->tx->res->code : $@;
         print "$code (Error)\n" if $code != 200;
 
-        print $obj->json && $opt->perl
+        print $obj->json && $as_perl
           ? pp $obj->json
           : $obj->value;
 
