@@ -33,10 +33,10 @@ sub execute {
     if (    $bucket eq '_'
         and $key eq '_'
         and @$args
-        and $args->[0] =~ /(.+)?\/(.+)$/)
+        and $args->[0] =~ /(.+?)(?:\/(.+))?$/)
     {
         $bucket = $1;
-        $key    = $2;
+        $key    = $2 if $2;
     }
 
     # Delete all keys in bucket

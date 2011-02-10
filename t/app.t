@@ -103,6 +103,16 @@ subtest 'delete keys' => sub {
       'deleted';
     is test_app('App::karyn' => [qw'list b1/k1'])->stdout => "404 (Error)\n",
       'verified';
+
+    # Delete all keys in bucket shortcut
+    is test_app('App::karyn' => [qw'add b1/k1 --value v1'])->stdout =>
+      "204 No Content (Success)\n",
+      'added';
+    is test_app('App::karyn' => [qw'delete b1'])->stdout =>
+      "Deleted b1/k1\n",
+      'deleted';
+    is test_app('App::karyn' => [qw'list b1/k1'])->stdout => "404 (Error)\n",
+      'verified';
 };
 
 done_testing;
