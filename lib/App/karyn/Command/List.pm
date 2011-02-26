@@ -10,7 +10,6 @@ sub opt_spec {
     return (
         ['bucket|b=s' => 'Regex for bucket names', {default => '_'}],
         ['key|k=s'    => 'Regex for key name',     {default => '_'}],
-        ['delete|d'   => 'Delete found keys'],
         ['links|l'    => 'List links in found keys'],
         ['perl|p'     => 'Dump JSON as perl structure'],
     );
@@ -47,7 +46,7 @@ sub execute {
     # Show key value
     if ($bucket ne '_' and $key ne '_') {
         my $obj = $tiny->get($bucket => $key);
-        my $code = $obj ? $obj->tx->res->code : $@;
+        my $code = $obj ? $obj->client->tx->res->code : $@;
         print "$code (Error)\n" if $code != 200;
 
         print $obj->json && $as_perl
@@ -86,3 +85,21 @@ sub execute {
 }
 
 1;
+
+=head1 NAME
+
+App::karyn::Command::List
+
+=head1 DESCRIPTION
+
+Lists key/values in Riak
+
+=head1 USAGE
+
+See L<App::karyn>
+
+=head1 METHODS
+
+See L<App::Cmd>
+
+=cut

@@ -5,10 +5,10 @@ use App::Cmd::Tester;
 use App::karyn;
 
 # Remove test keys by bucket
-test_app('App::karyn' => [qw'delete -b b1']);
-test_app('App::karyn' => [qw'delete -b b2']);
-test_app('App::karyn' => [qw'delete -b b3']);
-test_app('App::karyn' => [qw'delete -b b4']);
+ok test_app('App::karyn' => [qw'delete -b b1']), 'clear bucket';
+ok test_app('App::karyn' => [qw'delete -b b2']), 'clear bucket';
+ok test_app('App::karyn' => [qw'delete -b b3']), 'clear bucket';
+ok test_app('App::karyn' => [qw'delete -b b4']), 'clear bucket';
 
 subtest 'add key/values' => sub {
 
@@ -22,10 +22,10 @@ subtest 'list buckets' => sub {
 
     # list buckets
     like test_app('App::karyn' => [qw/list --bucket _/])->stdout =>
-      qr/\nhello\n/,
+      qr/\nb1\n/,
       'list buckets';
 
-    # list buckets alias
+    # list buckets defaults to underscore wildcard
     is test_app('App::karyn' => [qw/list/])->stdout =>
       test_app('App::karyn' => [qw/list --bucket _/])->stdout,
       'default list buckets';

@@ -49,7 +49,7 @@ sub execute {
     # Delete bucket key/value
     elsif ($bucket ne '_' and $key ne '_') {
         my $obj = $tiny->get($bucket => $key);
-        my $code = $obj ? $obj->tx->res->code : $@;
+        my $code = $obj ? $obj->client->tx->res->code : $@;
         print "$code (Error)\n" and return if $code != 200;
 
         $obj->delete;
@@ -58,3 +58,21 @@ sub execute {
 }
 
 1;
+
+=head1 NAME
+
+App::karyn::Command::Delete
+
+=head1 DESCRIPTION
+
+Removes key/values to Riak
+
+=head1 USAGE
+
+See L<App::karyn>
+
+=head1 METHODS
+
+See L<App::Cmd>
+
+=cut

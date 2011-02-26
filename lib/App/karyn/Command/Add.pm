@@ -45,8 +45,26 @@ sub execute {
     $value = $args->[1] if @$args and $args->[1];
 
     my $obj = $tiny->new_object($bucket => $key => $value);
-    my $code = $obj ? $obj->tx->res->code : $@;
+    my $code = $obj ? $obj->client->tx->res->code : $@;
     print "$code No Content (Success)\n" if $code == 204;
 }
 
 1;
+
+=head1 NAME
+
+App::karyn::Command::Add
+
+=head1 DESCRIPTION
+
+Adds key/values to Riak
+
+=head1 USAGE
+
+See L<App::karyn>
+
+=head1 METHODS
+
+See L<App::Cmd>
+
+=cut
