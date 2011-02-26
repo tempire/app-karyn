@@ -17,6 +17,28 @@ has client => sub { Mojo::Client->new };
 
 App::karyn - Command line utility for perusing buckets and keys in Riak
 
+=head1 DESCRIPTION
+
+Command line utility for perusing buckets and keys in Riak
+
+=head2 Why is it named Karyn?
+
+Every Stargate SG1 fan who mispronounces "Riak" initially, should be able 
+to answer this question.
+
+=over 4
+
+=item Rya'c is Teal'c's son.
+
+=item Karyn is Rya'c's wife.
+
+=item Karyn is a helper for Riak.
+
+=back
+
+=head1 USAGE
+
+
 =head1 USAGE
 
 Add a bucket, key, and value
