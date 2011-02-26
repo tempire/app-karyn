@@ -3,8 +3,6 @@ package App::karyn;
 use App::Cmd::Setup -app;
 use Mojo::Base -base;
 use Mojo::Client;
-
-use lib '/Users/glen/Projects/riak-tiny/lib';
 use Riak::Tiny;
 
 has host => $ENV{RIAK_HOST} || 'http://127.0.0.1:8098';
