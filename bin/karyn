@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
-use App::Karyn;
+use App::karyn;
 
-App::Karyn->run;
+App::karyn->run;
 
 1;
