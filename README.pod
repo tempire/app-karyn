@@ -23,7 +23,7 @@ to answer this question.
 
 =head1 INSTALL
 
-    curl -L cpanmin.us | perl - https://github.com/tempire/riak-tiny/raw/master/Riak-Tiny-0.01.tar.gz https://github.com/tempire/app-karyn/raw/master/App-karyn-0.01.tar.gz
+    curl -L github.com/tempire/app-karyn/raw/master/install | sh
 
 =head1 USAGE
 
