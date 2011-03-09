@@ -1,9 +1,9 @@
 package App::karyn::Command::Add;
 
-use App::karyn -command;
+use strict;
+use warnings;
 
-use Modern::Perl;
-use Devel::Dwarn;
+use App::karyn -command;
 
 sub opt_spec {
     return (

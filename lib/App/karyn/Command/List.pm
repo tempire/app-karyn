@@ -1,10 +1,11 @@
 package App::karyn::Command::List;
 
-use App::karyn -command;
-use Modern::Perl;
-use Devel::Dwarn;
+use strict;
+use warnings;
 use Term::ANSIColor;
 use Data::Dump 'pp';
+
+use App::karyn -command;
 
 sub opt_spec {
     return (

@@ -1,8 +1,9 @@
-use Modern::Perl;
-use Test::Most;
-
+use strict;
+use warnings;
 use App::Cmd::Tester;
 use App::karyn;
+
+use Test::More;
 
 # Remove test keys by bucket
 ok test_app('App::karyn' => [qw'delete -b b1']), 'clear bucket';
@@ -22,7 +23,7 @@ subtest 'list buckets' => sub {
 
     # list buckets
     like test_app('App::karyn' => [qw/list --bucket _/])->stdout =>
-      qr/\nb1\n/,
+      qr/b1\n/,
       'list buckets';
 
     # list buckets defaults to underscore wildcard
@@ -41,6 +42,7 @@ subtest 'add keys' => sub {
       'added';
     is test_app('App::karyn' => [qw'list b2/k2'])->stdout => "v2\n",
       'verified';
+    #ok test_app('App::karyn' => [qw'delete -b b2']), 'clear bucket';
 
     # Add bucket/key value shortcut
     is test_app('App::karyn' => [qw'list b3/k3'])->stdout => "404 (Error)\n",
@@ -50,6 +52,7 @@ subtest 'add keys' => sub {
       'added';
     is test_app('App::karyn' => [qw'list b3/k3'])->stdout => "v3\n",
       'verified';
+    ok test_app('App::karyn' => [qw'delete -b b3']), 'clear bucket';
 };
 
 
@@ -81,6 +84,7 @@ subtest 'show keys' => sub {
     like test_app('App::karyn' => [qw'list b4/k4 --perl'])->stdout =>
       qr/{\s+json\s+=>\s+"structure"\s+}/,
       'pp json';
+    ok test_app('App::karyn' => [qw'delete -b b4']), 'clear bucket';
 };
 
 subtest 'delete keys' => sub {
