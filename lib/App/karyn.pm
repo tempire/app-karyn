@@ -34,10 +34,13 @@ to answer this question.
 
 =back
 
+=head1 INSTALL
+
+    curl -L github.com/tempire/app-karyn/raw/master/install | sh
+
 =head1 USAGE
 
-
-=head1 USAGE
+Defaults to http://127.0.0.1:8098/.  See below for specifying other hosts.
 
 Add a bucket, key, and value
 
@@ -77,5 +80,24 @@ Delete all keys in bucket
 
     karyn delete --bucket b
     karyn delete -b b -d
+
+=head2 DEBUGGING
+
+Display http request & response on stdout
+
+    MOJO_CLIENT_DEBUG=1 karyn list
+
+=head2 CONNECT TO ANOTHER HOST
+
+    RIAK_HOST=http://anotherhost:port karyn list
+
+or (with bash)
+
+    export RIAK_HOST=http://anotherhost:port
+    karyn list
+
+Keep in mind that you can reset the env variable after you set it:
+
+    unset RIAK_HOST
 
 =cut
