@@ -1,0 +1,1 @@
+curl -L cpanmin.us | perl - https://github.com/tempire/riak-tiny/raw/master/Riak-Tiny-0.01.tar.gz https://github.com/tempire/app-karyn/raw/master/App-karyn-0.01.tar.gz
