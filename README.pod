@@ -25,6 +25,8 @@ to answer this question.
 
 Requires L<Riak::Tiny|https://github.com/tempire/riak-tiny>
 
+Tests require a Riak instance listening on http://localhost:8098
+
     curl -L http://github.com/tempire/app-karyn/raw/master/install | sh
 
 =head1 USAGE
