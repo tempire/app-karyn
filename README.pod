@@ -23,7 +23,7 @@ to answer this question.
 
 =head1 INSTALL
 
-    Requires <a href="https://github.com/tempire/riak-tiny">Riak::Tiny</a>
+Requires L<Riak::Tiny|https://github.com/tempire/riak-tiny>
 
     curl -L http://github.com/tempire/app-karyn/raw/master/install | sh
 
