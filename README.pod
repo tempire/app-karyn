@@ -23,7 +23,9 @@ to answer this question.
 
 =head1 INSTALL
 
-    curl -L github.com/tempire/app-karyn/raw/master/install | sh
+    Requires <a href="https://github.com/tempire/riak-tiny">Riak::Tiny</a>
+
+    curl -L http://github.com/tempire/app-karyn/raw/master/install | sh
 
 =head1 USAGE
 
